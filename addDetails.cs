@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using System.Text;
 using Address_Book;
 namespace Address_Book
@@ -38,6 +39,54 @@ namespace Address_Book
             foreach (var element in addressBook)
             {
                 Console.WriteLine(element);
+            }
+        }
+        public void EditContact(long phoneNumber)
+        {
+            Console.WriteLine(addressBook[phoneNumber]);
+            Person_Details person= this.person;
+            Console.WriteLine("Enter your choice for editing: ");
+            Console.WriteLine("1.FirstName 2.LastName 3.Address 4.city 5.State 6.Zipcode 7.EmailId");
+            long choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Enter the first name ");
+                    string firstName = Console.ReadLine();
+                    person.FirstName = firstName;
+                    break;
+                case 2:
+                    Console.WriteLine("Enter last name");
+                    string lastName = Console.ReadLine();
+                    person.LastName = lastName;
+                    break;
+                case 3:
+                    Console.WriteLine("Enter address");
+                    string address = Console.ReadLine();
+                    person.Adderss = address;
+                    break;
+                case 4:
+                    Console.WriteLine("Enter city");
+                    string city = Console.ReadLine();
+                    person.City = city;
+                    break;
+                case 5:
+                    Console.WriteLine("Enter state");
+                    string state = Console.ReadLine();
+                    person.State = state;
+                    break;
+                case 6:
+                    Console.WriteLine("Enter Zip Code");
+                    int zipCode = Convert.ToInt32(Console.ReadLine());
+                    person.ZipCode = zipCode;
+                    break;
+                case 7:
+                    Console.WriteLine("Enter EmailID");
+                    string emailId = Console.ReadLine();
+                    person.EmailId = emailId;
+                    break;
+                default:
+                    break;
             }
         }
     }

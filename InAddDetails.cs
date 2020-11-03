@@ -15,5 +15,9 @@ namespace Address_Book
         /// displayAddressBook method is used to display the contact details present in the address book
         /// </summary>
         public void displayAddressBook();
+        /// <summary>
+        /// editContact method is used to edit the contact
+        /// </summary>
+        public void EditContact(long phoneNumber);
     }
 }
