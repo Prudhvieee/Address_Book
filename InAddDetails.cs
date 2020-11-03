@@ -19,5 +19,10 @@ namespace Address_Book
         /// editContact method is used to edit the contact
         /// </summary>
         public void EditContact(long phoneNumber);
+        /// <summary>
+        /// deleteContact method is used to the contact using phone number as a key
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        public void DeleteContact(long phoneNumber);
     }
 }

@@ -89,5 +89,9 @@ namespace Address_Book
                     break;
             }
         }
+        public void DeleteContact(long phoneNumber)
+        {
+            addressBook.Remove(phoneNumber);
+        }
     }
 }
