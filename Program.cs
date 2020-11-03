@@ -4,9 +4,13 @@ namespace Address_Book
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("---Welcome to Address Book---");
+            displayMenu();
+        }
+        public static void displayMenu()
+        {
             Console.WriteLine("***Enter Your Choice***");
             Console.WriteLine("1.Add Details");
             Console.WriteLine("2.Display Details");

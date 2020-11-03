@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Text;
-using Address_Book;
 namespace Address_Book
 {
     public class addDetails : InAddDetails
@@ -11,7 +10,8 @@ namespace Address_Book
         /// Created a dictionary to store the contacts using phone number as a key 
         /// string as a value
         /// </summary>
-        private readonly IDictionary<long, Person_Details> addressBook = new Dictionary<long, Person_Details>();
+        private static List<Person_Details> list = new List<Person_Details>();
+        private static Dictionary<long, List<Person_Details>> addressBook = new Dictionary<long, List<Person_Details>>();
         private Person_Details person= null;
         public void AddContact()
         {
@@ -32,14 +32,13 @@ namespace Address_Book
             Console.WriteLine("Enter EmailID");
             string emailId = Console.ReadLine();
             this.person = new Person_Details(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
-            this.addressBook.Add(phoneNumber, this.person);
+            list.Add(this.person);
+            addressBook.Add(phoneNumber, list);
+            Program.displayMenu();
         }
         public void displayAddressBook()
         {
-            foreach (var element in addressBook)
-            {
-                Console.WriteLine(element);
-            }
+            list.ForEach(num => Console.WriteLine(num + ", "));
         }
         public void EditContact(long phoneNumber)
         {
@@ -91,7 +90,7 @@ namespace Address_Book
         }
         public void DeleteContact(long phoneNumber)
         {
-            addressBook.Remove(phoneNumber);
+            //addressBook.Remove(phoneNumber);
         }
     }
 }
