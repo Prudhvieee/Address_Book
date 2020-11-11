@@ -12,6 +12,7 @@ namespace Address_Book
         /// Created a List to store the contacts 
         /// </summary>
         List<Person_Details> addressBook = new List<Person_Details>();
+        Dictionary<string, Person_Details> contacts = new Dictionary<string, Person_Details>();
         public addDetails()
         {
             this.addressBook = new List<Person_Details>();
@@ -21,44 +22,48 @@ namespace Address_Book
         /// </summary>
         public void AddContact()
         {
-            this.addressBook.Add(AddPerson());
-            Console.WriteLine("Contact added successfully");
-            Console.WriteLine("Do you want to continue YES/NO");
-            string input = Console.ReadLine();
-            if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+            bool flag = true;
+            while (flag)
             {
-                MultipleAddressBook multipleAddress = new MultipleAddressBook();
-                multipleAddress.DisplayMenu();
+                Console.WriteLine("\n\t\t\tEnter First Name of Contact ");
+                string firstName = Console.ReadLine();
+                if (this.contacts.ContainsKey(firstName))
+                {
+                    Console.WriteLine("A contact already exist with this name, try again!\n");
+                    AddContact();
+                    return;
+                }
+                Person_Details person = new Person_Details();
+                person.FirstName = (Console.ReadLine());
+                Console.WriteLine("Enter last name");
+                person.LastName = Console.ReadLine();
+                Console.WriteLine("Enter address");
+                person.Address = Console.ReadLine();
+                Console.WriteLine("Enter city");
+                person.City = Console.ReadLine();
+                Console.WriteLine("Enter state");
+                person.State = Console.ReadLine();
+                Console.WriteLine("Enter Zip Code");
+                person.ZipCode = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter phoneNumber");
+                person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                Console.WriteLine("Enter EmailID");
+                person.EmailId = Console.ReadLine();
+                this.addressBook.Add(person);
+                this.contacts.Add(person.FirstName, person);
+                Console.WriteLine("Do you want to continue YES/NO");
+                string input = Console.ReadLine();
+                if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+                {
+                    MultipleAddressBook multipleAddress = new MultipleAddressBook();
+                    multipleAddress.DisplayMenu();
+                }
+                else
+                {
+                    flag = false;
+                    Console.WriteLine("Thank you");
+                }
             }
-            else
-            {
-                Console.WriteLine("Thank you");
-            }
-        }
-        /// <summary>
-        /// AddPerson is used to read details from the user
-        /// </summary>
-        /// <returns>person details</returns>
-        public Person_Details AddPerson()
-        {
-            Person_Details person = new Person_Details();
-            Console.WriteLine("Enter First name ");
-            person.FirstName = (Console.ReadLine());
-            Console.WriteLine("Enter last name");
-            person.LastName = Console.ReadLine();
-            Console.WriteLine("Enter address");
-            person.Address = Console.ReadLine();
-            Console.WriteLine("Enter city");
-            person.City = Console.ReadLine();
-            Console.WriteLine("Enter state");
-            person.State = Console.ReadLine();
-            Console.WriteLine("Enter Zip Code");
-            person.ZipCode = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter phoneNumber");
-            person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("Enter EmailID");
-            person.EmailId = Console.ReadLine();
-            return person;
         }
         /// <summary>
         /// Display addresss book is used to display the details added in list
