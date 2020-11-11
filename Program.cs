@@ -6,6 +6,7 @@ namespace Address_Book
     {
         static void Main(string[] args)
         {
+            //Asks the user to select the choice
             Console.WriteLine("---Welcome to Address Book---");
             Console.WriteLine("***Enter Your Choice***");
             Console.WriteLine("1.Add Details");
@@ -17,7 +18,6 @@ namespace Address_Book
                 case 1:
                     details.AddContact();
                     details.displayAddressBook();
-
                     break;
                 case 2:
                     details.displayAddressBook();

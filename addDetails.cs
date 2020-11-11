@@ -7,32 +7,45 @@ namespace Address_Book
     public class addDetails : InAddDetails
     {
         /// <summary>
-        /// Created a dictionary to store the contacts using phone number as a key 
-        /// string as a value
+        /// UC-2
+        /// Created a List to store the contacts 
         /// </summary>
-        private readonly IDictionary<long, Person_Details> addressBook = new Dictionary<long, Person_Details>();
-        private Person_Details person= null;
+        List<Person_Details> addressBook = new List<Person_Details>();
+        /// <summary>
+        /// AddContact method is used to add contacts to the list
+        /// </summary>
         public void AddContact()
         {
-            Console.WriteLine("Enter First name ");
-            string firstName = Console.ReadLine();
-            Console.WriteLine("Enter last name");
-            string lastName = Console.ReadLine();
-            Console.WriteLine("Enter address");
-            string address = Console.ReadLine();
-            Console.WriteLine("Enter city");
-            string city = Console.ReadLine();
-            Console.WriteLine("Enter state");
-            string state = Console.ReadLine();
-            Console.WriteLine("Enter Zip Code");
-            int zipCode = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter phoneNumber");
-            long phoneNumber = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("Enter EmailID");
-            string emailId = Console.ReadLine();
-            this.person = new Person_Details(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
-            this.addressBook.Add(phoneNumber, this.person);
+            this.addressBook.Add(AddPerson());
         }
+        /// <summary>
+        /// AddPerson is used to read details from the user
+        /// </summary>
+        /// <returns>person details</returns>
+        public Person_Details AddPerson()
+        {
+            Person_Details person = new Person_Details();
+            Console.WriteLine("Enter First name ");
+            person.FirstName = (Console.ReadLine());
+            Console.WriteLine("Enter last name");
+            person.LastName = Console.ReadLine();
+            Console.WriteLine("Enter address");
+            person.Address = Console.ReadLine();
+            Console.WriteLine("Enter city");
+            person.City = Console.ReadLine();
+            Console.WriteLine("Enter state");
+            person.State = Console.ReadLine();
+            Console.WriteLine("Enter Zip Code");
+            person.ZipCode = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter phoneNumber");
+            person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+            Console.WriteLine("Enter EmailID");
+            person.EmailId = Console.ReadLine();
+            return person;
+        }
+        /// <summary>
+        /// Display addresss book is used to display the details added in list
+        /// </summary>
         public void displayAddressBook()
         {
             foreach (var element in addressBook)
