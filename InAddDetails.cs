@@ -29,5 +29,6 @@ namespace Address_Book
         /// </summary>
         public void searchContact();
         public void ViewContact();
+        public void Count();
     }
 }

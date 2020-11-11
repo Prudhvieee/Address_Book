@@ -79,6 +79,9 @@ namespace Address_Book
                 case 6:
                     details.ViewContact();
                     break;
+                case 7:
+                    details.Count();
+                    break;
                 default:
                     break;
             }
@@ -239,6 +242,35 @@ namespace Address_Book
                         if (list[i].State.Equals(state))
                             Console.WriteLine(list[i]);
                     }
+                    break;
+            }
+        }
+        public void Count()
+        {
+            int count = 0;
+            Console.WriteLine("Enter your Choice for Count Person by:");
+            Console.WriteLine("1. City 2. State");
+            String choice = Console.ReadLine();
+            int choice1 = Convert.ToInt32(choice);
+            switch (choice1)
+            {
+                case 1:
+                    Console.WriteLine("Enter your City");
+                    String city = Console.ReadLine();
+                    foreach (Person_Details personal_Details in list.FindAll(c => c.City == city))
+                    {
+                        count = list.Count();
+                    }
+                    Console.WriteLine(count);
+                    break;
+                case 2:
+                    Console.WriteLine("Enter your State");
+                    String state = Console.ReadLine();
+                    foreach (Person_Details personal_Details in list.FindAll(c => c.State == state))
+                    {
+                        count = list.Count();
+                    }
+                    Console.WriteLine(count);
                     break;
             }
         }
