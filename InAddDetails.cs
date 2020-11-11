@@ -27,5 +27,7 @@ namespace Address_Book
         /// <summary>
         /// Search contact method is used to search contact
         /// </summary>
+        public void searchContact();
+        public void ViewContact();
     }
 }
