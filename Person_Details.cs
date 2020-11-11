@@ -16,20 +16,20 @@ namespace Address_Book
         private long phoneNumber;
         private string emailId;
         //Constructor to initialize firstname, lastname,city,state,zip,phonenumber,email
-        public Person_Details(string firstName, string lastName, string address, string city, string state, int zipCode, long phoneNumber, string emailId)
+        public Person_Details()
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.address = address;
-            this.city = city;
-            this.state = state;
-            this.zipCode = zipCode;
-            this.phoneNumber = phoneNumber;
-            this.emailId = emailId;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Address = address;
+            this.City = city;
+            this.State = state;
+            this.ZipCode = zipCode;
+            this.PhoneNumber = phoneNumber;
+            this.EmailId = emailId;
         }
         public string FirstName { get => this.firstName; set => this.firstName = value; }
         public string LastName { get => this.lastName; set => this.lastName = value; }
-        public string Adderss { get => this.address; set => this.address = value; }
+        public string Address { get => this.address; set => this.address = value; }
         public string City { get => this.city; set => this.city = value; }
         public string State { get => this.state; set => this.state = value; }
         public int ZipCode { get => this.zipCode; set => this.zipCode = value; }
@@ -37,8 +37,8 @@ namespace Address_Book
         public string EmailId { get => this.emailId; set => this.emailId = value; }
         public override string ToString()
         {
-            return "\nFirstName : " + this.firstName + "\nLastName : " + this.lastName + "\nAddress : " + this.address + "\nCity : " + this.city
-                + "\nState : " + this.state + "\nZipCode :" + this.zipCode + "\nPhoneNumber : " + this.phoneNumber + "\nemail-id :" + this.emailId;
+            return "\nFirstName : " + this.firstName + " LastName : " + this.lastName + " Address : " + this.address + " City : " + this.city
+                + " State : " + this.state + " ZipCode : " + this.zipCode + " PhoneNumber : " + this.phoneNumber + " email id " + this.emailId;
         }
     }
 }
