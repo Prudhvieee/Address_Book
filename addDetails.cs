@@ -103,6 +103,10 @@ namespace Address_Book
                 Console.WriteLine("Thank you");
             }
         }
+        /// <summary>
+        /// UC-3
+        /// Edit contact method is used to edit the existing contact details 
+        /// </summary>
         static int count = 0;
         public void EditContact(long phoneNumber)
         {
