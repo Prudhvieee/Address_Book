@@ -52,6 +52,7 @@ namespace Address_Book
             Console.WriteLine("3.Edit contact");
             Console.WriteLine("4.Delete contact");
             Console.WriteLine("5.Search Contact by city or state");
+            Console.WriteLine("6.View contact");
             int choice = Convert.ToInt32(Console.ReadLine());
             addDetails details = new addDetails();
             switch (choice)
@@ -74,6 +75,9 @@ namespace Address_Book
                     break;
                 case 5:
                     details.searchContact();
+                    break;
+                case 6:
+                    details.ViewContact();
                     break;
                 default:
                     break;
