@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Address_Book
 {
     public class Person_Deatils
@@ -44,9 +43,8 @@ namespace Address_Book
         public long getPhoneNumber() { return phoneNumber; }
         public string ToString()
         {
-            return "\nFirstName : " + this.firstName + " LastName : " + this.lastName + " Address : " + this.address + " City : " + this.city 
+            return "\nFirstName : " + this.firstName + " LastName : " + this.lastName + " Address : " + this.address + " City : " + this.city
                 + "State : " + this.state + "ZipCode : " + this.zipCode + " PhoneNumber : " + this.phoneNumber;
         }
-
     }
 }
