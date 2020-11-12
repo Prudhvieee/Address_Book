@@ -19,7 +19,7 @@ namespace Address_Book
             while (flag)
             {
                 Console.WriteLine("1. New addressbook\n" + "2. open existing\n" + "3. EditPerson\n"
-                       + "4. DeletePerson\n" + "5. ViewPersonByCityOrState\n" + "6. ReadFromFile\n7.close addressbook");
+                       + "4. DeletePerson\n" + "5. ViewPersonByCityOrState\n" + "6. ReadFromFile\n7.Read data from csv file\n8.close address book");
                 int options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -43,6 +43,10 @@ namespace Address_Book
                         fileIOOperations1.ReadFromFile();
                         break;
                     case 7:
+                        FileIOOperations fileIOOperations2 = new FileIOOperations();
+                        fileIOOperations2.ImplementCSVDataHandling();
+                        break;
+                    case 8:
                         flag = false;
                         break;
                     default:
