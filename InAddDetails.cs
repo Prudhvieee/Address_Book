@@ -24,11 +24,6 @@ namespace Address_Book
         /// </summary>
         /// <param name="phoneNumber"></param>
         public void DeleteContact(long phoneNumber);
-        /// <summary>
-        /// Search contact method is used to search contact
-        /// </summary>
-        public void searchContact();
-        public void ViewContact();
-        public void Count();
+ 
     }
 }

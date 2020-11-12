@@ -1,0 +1,12 @@
+﻿
+FirstName :  LastName : reddy Address : faf City : dsaf State : fasd ZipCode : 123 PhoneNumber : 213 email id sfga
+
+FirstName :  LastName : re Address : asd City : edc State : qwe ZipCode : 123 PhoneNumber : 321 email id edc
+
+FirstName :  LastName : reddy Address : srikalahasthi City : tpt State : ap ZipCode : 123 PhoneNumber : 321 email id adf
+
+FirstName :  LastName : reddy Address : asw City : qs State : sw ZipCode : 123 PhoneNumber : 321 email id aq
+
+FirstName :  LastName : r Address : add City : city State : state ZipCode : 123 PhoneNumber : 321 email id sf
+
+FirstName :  LastName : lo Address : ko City : 23 State : l ZipCode : 123 PhoneNumber : 1234 email id sd
