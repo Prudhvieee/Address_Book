@@ -56,6 +56,7 @@ namespace Address_Book
                 FileIOOperations fileIOOperations = new FileIOOperations();
                 fileIOOperations.WriteToFile(addressBook);
                 fileIOOperations.WriteCSVFile(addressBook);
+                fileIOOperations.WriteToJsonFile(addressBook);
                 CitywiseContact[person] = person.City;
                 StatewiseContact[person] = person.State;
                 this.contacts.Add(person.FirstName, person);
