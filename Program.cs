@@ -6,8 +6,8 @@ namespace Address_Book
         static void Main(string[] args)
         {
             Console.WriteLine("---Welcome to Address Book---");
-            MultipleAddressBook multipleAddress = new MultipleAddressBook();
-            multipleAddress.DisplayMenu();
+            addDetails newDetails = new addDetails();
+            newDetails.CreateMultipleAddressBook();
         }
     }
 }
