@@ -25,22 +25,14 @@ namespace Address_Book
             this.phoneNumber = phoneNumber;
             this.emailId = emailId;
         }
-        //Setter methods
-        public void setFirstName(string firstName) { this.firstName = firstName; }
-        public void setLastName(string lastName) { this.lastName = lastName; }
-        public void setAddress(string address) { this.address = address; }
-        public void setCity(string city) { this.city = city; }
-        public void setState(string state) { this.state = state; }
-        public void setZipCode(int zipCode) { this.zipCode = zipCode; }
-        public void setPhoneNumber(long phoneNumber) { this.phoneNumber = phoneNumber; }
-        //Getter Methods
-        public string getFirstName() { return firstName; }
-        public string getLastName() { return lastName; }
-        public string getAddress() { return address; }
-        public string getCity() { return city; }
-        public string getState() { return state; }
-        public int getZipCode() { return zipCode; }
-        public long getPhoneNumber() { return phoneNumber; }
+        public string FirstName { get => this.firstName; set => this.firstName = value; }
+        public string LastName { get => this.lastName; set => this.lastName = value; }
+        public string Address { get => this.address; set => this.address = value; }
+        public string City { get => this.city; set => this.city = value; }
+        public string State { get => this.state; set => this.state = value; }
+        public int ZipCode { get => this.zipCode; set => this.zipCode = value; }
+        public long PhoneNumber { get => this.phoneNumber; set => this.phoneNumber = value; }
+        public string EmailID { get => this.emailId; set => this.emailId = value; }
         public string ToString()
         {
             return "\nFirstName : " + this.firstName + " LastName : " + this.lastName + " Address : " + this.address + " City : " + this.city
