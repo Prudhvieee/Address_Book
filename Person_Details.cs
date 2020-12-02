@@ -37,8 +37,8 @@ namespace Address_Book
         public string EmailId { get => this.emailId; set => this.emailId = value; }
         public override string ToString()
         {
-            return "\nFirstName : " + this.firstName + " LastName : " + this.lastName + " Address : " + this.address + " City : " + this.city
-                + " State : " + this.state + " ZipCode : " + this.zipCode + " PhoneNumber : " + this.phoneNumber + " email id " + this.emailId;
+            return "\nFirstName : " + this.firstName + "\nLastName : " + this.lastName + "\nAddress : " + this.address + "\nCity : " + this.city
+                + "\nState : " + this.state + "\nZipCode : " + this.zipCode + "\nPhoneNumber : " + this.phoneNumber + "\nemail id " + this.emailId;
         }
     }
 }
