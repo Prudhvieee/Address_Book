@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Address_Book;
-
 namespace Address_Book
 {
     public interface InAddDetails

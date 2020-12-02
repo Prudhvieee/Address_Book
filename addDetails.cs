@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Text;
-using Address_Book;
 namespace Address_Book
 {
     public class addDetails : InAddDetails
@@ -94,9 +91,16 @@ namespace Address_Book
         /// </summary>
         public void displayAddressBook()
         {
-            foreach (var element in addressBook)
+            if (addressBook.Count == 0)
             {
-                Console.WriteLine(element);
+                Console.WriteLine("No Contacts");
+            }
+            else
+            {
+                foreach (var element in addressBook)
+                {
+                    Console.WriteLine(element);
+                }
             }
             Console.WriteLine("Do you want to continue YES/NO");
             string input = Console.ReadLine();
@@ -203,11 +207,6 @@ namespace Address_Book
                 }
             }
             addressBook.RemoveAt(index);
-            //P is the person object and using list as iterator
-            foreach (Person_Details P in addressBook)
-            {
-                Console.WriteLine(P.ToString());
-            }
             if (count == 0)
                 Console.WriteLine("\n\t\t\tNo such data found");
             Console.WriteLine("Do you want to continue YES/NO");
