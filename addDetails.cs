@@ -9,6 +9,7 @@ namespace Address_Book
         /// Created a List to store the contacts 
         /// </summary>
         List<Person_Details> addressBook = new List<Person_Details>();
+        Dictionary<string, addDetails> contacts = new Dictionary<string, addDetails>();
         public addDetails()
         {
             this.addressBook = new List<Person_Details>();
@@ -16,10 +17,7 @@ namespace Address_Book
         public void DisplayMenu()
         {
             Console.WriteLine("***Enter Your Choice***");
-            Console.WriteLine("1.Add Details");
-            Console.WriteLine("2.Display Details");
-            Console.WriteLine("3.Edit contact");
-            Console.WriteLine("4.Delete contact");
+            Console.WriteLine("1.Add Details\n2.Display Details\n3.Edit contact\n4.Delete contact\n5.Exit");
             int choice = Convert.ToInt32(Console.ReadLine());
             switch (choice)
             {
@@ -39,8 +37,42 @@ namespace Address_Book
                     long number1 = Convert.ToInt32(Console.ReadLine());
                     DeleteContact(number1);
                     break;
+                case 5:
+                    return;
                 default:
                     break;
+            }
+        }
+        public void CreateMultipleAddressBook()
+        {
+            while (true)
+            {
+                Console.WriteLine("Enter your Choice");
+                Console.WriteLine("1.Add Address Book");
+                Console.WriteLine("2.Exit");
+
+                String choice = Console.ReadLine();
+                int choice1 = Convert.ToInt32(choice);
+                switch (choice1)
+                {
+                    case 1:
+                        Console.WriteLine("Enter the Name of Address Book");
+                        string name = Console.ReadLine();
+                        if (contacts.ContainsKey(name))
+                        {
+                            Console.WriteLine("Already exists...");
+                        }
+                        else
+                        {
+                            addDetails details = new addDetails();
+                            contacts.Add(name, details);
+                            Console.WriteLine("Address Book is Created...");
+                            details.DisplayMenu();
+                        }
+                        break;
+                    case 2:
+                        return;
+                }
             }
         }
         /// <summary>
@@ -48,43 +80,46 @@ namespace Address_Book
         /// </summary>
         public void AddContact()
         {
-            this.addressBook.Add(AddPerson());
-            Console.WriteLine("Contact added successfully");
-            Console.WriteLine("Do you want to continue YES/NO");
-            string input = Console.ReadLine();
-            if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+            bool flag = true;
+            while (flag)
             {
-                DisplayMenu();
+                Console.WriteLine("\nEnter First Name");
+                string firstName = Console.ReadLine();
+                if (this.contacts.ContainsKey(firstName))
+                {
+                    Console.WriteLine("A contact already exist with this name, try again!\n");
+                    AddContact();
+                    return;
+                }
+                Person_Details person = new Person_Details();
+                person.FirstName = (Console.ReadLine());
+                Console.WriteLine("Enter last name");
+                person.LastName = Console.ReadLine();
+                Console.WriteLine("Enter address");
+                person.Address = Console.ReadLine();
+                Console.WriteLine("Enter city");
+                person.City = Console.ReadLine();
+                Console.WriteLine("Enter state");
+                person.State = Console.ReadLine();
+                Console.WriteLine("Enter Zip Code");
+                person.ZipCode = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter phoneNumber");
+                person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                Console.WriteLine("Enter EmailID");
+                person.EmailId = Console.ReadLine();
+                this.addressBook.Add(person);
+                Console.WriteLine("Do you want to continue YES/NO");
+                string input = Console.ReadLine();
+                if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+                {
+                    DisplayMenu();
+                }
+                else
+                {
+                    flag = false;
+                    Console.WriteLine("Thank you");
+                }
             }
-            else
-            {
-                Console.WriteLine("Thank you");
-            }
-        }
-        /// <summary>
-        /// AddPerson is used to read details from the user
-        /// </summary>
-        /// <returns>person details</returns>
-        public Person_Details AddPerson()
-        {
-            Person_Details person = new Person_Details();
-            Console.WriteLine("Enter First name ");
-            person.FirstName = (Console.ReadLine());
-            Console.WriteLine("Enter last name");
-            person.LastName = Console.ReadLine();
-            Console.WriteLine("Enter address");
-            person.Address = Console.ReadLine();
-            Console.WriteLine("Enter city");
-            person.City = Console.ReadLine();
-            Console.WriteLine("Enter state");
-            person.State = Console.ReadLine();
-            Console.WriteLine("Enter Zip Code");
-            person.ZipCode = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter phoneNumber");
-            person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("Enter EmailID");
-            person.EmailId = Console.ReadLine();
-            return person;
         }
         /// <summary>
         /// Display addresss book is used to display the details added in list
@@ -108,7 +143,7 @@ namespace Address_Book
             {
                 DisplayMenu();
             }
-            else
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
             {
                 Console.WriteLine("Thank you");
             }

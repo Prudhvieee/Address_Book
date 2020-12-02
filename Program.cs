@@ -8,7 +8,7 @@ namespace Address_Book
             //Asks the user to select the choice
             Console.WriteLine("---Welcome to Address Book---");
             addDetails newDetails = new addDetails();
-            newDetails.DisplayMenu();
+            newDetails.CreateMultipleAddressBook();
         }
     }
 }
