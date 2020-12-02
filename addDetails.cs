@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Address_Book
 {
     public class addDetails : InAddDetails
@@ -9,7 +11,7 @@ namespace Address_Book
         /// Created a List to store the contacts 
         /// </summary>
         List<Person_Details> addressBook = new List<Person_Details>();
-        Dictionary<string, addDetails> contacts = new Dictionary<string, addDetails>();
+        Dictionary<string, List<Person_Details>> contacts = new Dictionary<string, List<Person_Details>>();
         public addDetails()
         {
             this.addressBook = new List<Person_Details>();
@@ -65,7 +67,7 @@ namespace Address_Book
                         else
                         {
                             addDetails details = new addDetails();
-                            contacts.Add(name, details);
+                            contacts.Add(name, addressBook);
                             Console.WriteLine("Address Book is Created...");
                             details.DisplayMenu();
                         }
@@ -83,16 +85,9 @@ namespace Address_Book
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("\nEnter First Name");
-                string firstName = Console.ReadLine();
-                if (this.contacts.ContainsKey(firstName))
-                {
-                    Console.WriteLine("A contact already exist with this name, try again!\n");
-                    AddContact();
-                    return;
-                }
                 Person_Details person = new Person_Details();
-                person.FirstName = (Console.ReadLine());
+                Console.WriteLine("\nEnter First Name");
+                person.FirstName = Console.ReadLine();
                 Console.WriteLine("Enter last name");
                 person.LastName = Console.ReadLine();
                 Console.WriteLine("Enter address");
@@ -104,7 +99,13 @@ namespace Address_Book
                 Console.WriteLine("Enter Zip Code");
                 person.ZipCode = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Enter phoneNumber");
-                person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                int phoneNumber = (int)Convert.ToInt64(Console.ReadLine());
+                foreach (Person_Details personal_Details in addressBook.FindAll(e => e.PhoneNumber == phoneNumber))
+                {
+                    Console.WriteLine("You entered Duplicate Phone Number...");
+                    return;
+                }
+                person.PhoneNumber = phoneNumber;
                 Console.WriteLine("Enter EmailID");
                 person.EmailId = Console.ReadLine();
                 this.addressBook.Add(person);
@@ -114,7 +115,7 @@ namespace Address_Book
                 {
                     DisplayMenu();
                 }
-                else
+                else if (input == "N" || input == "NO" || input == "n" || input == "no")
                 {
                     flag = false;
                     Console.WriteLine("Thank you");
@@ -216,7 +217,7 @@ namespace Address_Book
             {
                 DisplayMenu();
             }
-            else
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
             {
                 Console.WriteLine("Thank you");
             }
@@ -250,7 +251,7 @@ namespace Address_Book
             {
                 DisplayMenu();
             }
-            else
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
             {
                 Console.WriteLine("Thank you");
             }
