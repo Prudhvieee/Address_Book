@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Text;
-using Address_Book;
+using System.Linq;
+
 namespace Address_Book
 {
     public class addDetails : InAddDetails
@@ -11,14 +10,85 @@ namespace Address_Book
         /// UC-2
         /// Created a List to store the contacts 
         /// </summary>
-        public List<Person_Details> addressBook;
-        Dictionary<string, Person_Details> contacts = new Dictionary<string, Person_Details>();
-        public static Dictionary<Person_Details, string> CitywiseContact = new Dictionary<Person_Details, string>();
-        public static Dictionary<Person_Details, string> StatewiseContact = new Dictionary<Person_Details, string>();
-
+        List<Person_Details> addressBook = new List<Person_Details>();
+        Dictionary<string, List<Person_Details>> contacts = new Dictionary<string, List<Person_Details>>();
         public addDetails()
         {
             this.addressBook = new List<Person_Details>();
+        }
+        public void DisplayMenu()
+        {
+            Console.WriteLine("***Enter Your Choice***");
+            Console.WriteLine("1.Add Details\n2.Display Details\n3.Edit contact\n4.Delete contact\n5.Search person by city or state\n6.View contacts by city or state\n7.Count contacts\n8.Read from file\n9.Exit");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    AddContact();
+                    break;
+                case 2:
+                    displayAddressBook();
+                    break;
+                case 3:
+                    Console.WriteLine("Enter the phone number of the person you want to edit");
+                    long number = Convert.ToInt32(Console.ReadLine());
+                    EditContact(number);
+                    break;
+                case 4:
+                    Console.WriteLine("Enter the phone number you want to delete");
+                    long number1 = Convert.ToInt32(Console.ReadLine());
+                    DeleteContact(number1);
+                    break;
+                case 5:
+                    searchContact();
+                    break;
+                case 6:
+                    ViewContact();
+                    break;
+                case 7:
+                    CountContacts();
+                    break;
+                case 8:
+                    FileIOOperations fileIOOperations1 = new FileIOOperations();
+                    fileIOOperations1.ReadFromFile();
+                    break;
+                case 9:
+                    return;
+                default:
+                    break;
+            }
+        }
+        public void CreateMultipleAddressBook()
+        {
+            while (true)
+            {
+                Console.WriteLine("Enter your Choice");
+                Console.WriteLine("1.Add Address Book");
+                Console.WriteLine("2.Exit");
+
+                String choice = Console.ReadLine();
+                int choice1 = Convert.ToInt32(choice);
+                switch (choice1)
+                {
+                    case 1:
+                        Console.WriteLine("Enter the Name of Address Book");
+                        string name = Console.ReadLine();
+                        if (contacts.ContainsKey(name))
+                        {
+                            Console.WriteLine("Already exists...");
+                        }
+                        else
+                        {
+                            addDetails details = new addDetails();
+                            contacts.Add(name, addressBook);
+                            Console.WriteLine("Address Book is Created...");
+                            details.DisplayMenu();
+                        }
+                        break;
+                    case 2:
+                        return;
+                }
+            }
         }
         /// <summary>
         /// AddContact method is used to add contacts to the list
@@ -28,16 +98,9 @@ namespace Address_Book
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("Enter First Name of Contact ");
                 Person_Details person = new Person_Details();
-                string firstName = Console.ReadLine();
-                //if (this.contacts.ContainsKey(firstName))
-                //{
-                //    Console.WriteLine("A contact already exist with this name, try again!\n");
-                //    AddContact();
-                //    return;
-                //}
-                person.FirstName = (Console.ReadLine());
+                Console.WriteLine("\nEnter First Name");
+                person.FirstName = Console.ReadLine();
                 Console.WriteLine("Enter last name");
                 person.LastName = Console.ReadLine();
                 Console.WriteLine("Enter address");
@@ -49,48 +112,52 @@ namespace Address_Book
                 Console.WriteLine("Enter Zip Code");
                 person.ZipCode = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Enter phoneNumber");
-                person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                int phoneNumber = (int)Convert.ToInt64(Console.ReadLine());
+                foreach (Person_Details personal_Details in addressBook.FindAll(e => e.PhoneNumber == phoneNumber))
+                {
+                    Console.WriteLine("You entered Duplicate Phone Number...");
+                    return;
+                }
+                person.PhoneNumber = phoneNumber;
                 Console.WriteLine("Enter EmailID");
                 person.EmailId = Console.ReadLine();
                 this.addressBook.Add(person);
-                FileIOOperations fileIOOperations = new FileIOOperations();
-                fileIOOperations.WriteToFile(addressBook);
-                CitywiseContact[person] = person.City;
-                StatewiseContact[person] = person.State;
-                this.contacts.Add(person.FirstName, person);
                 Console.WriteLine("Do you want to continue YES/NO");
                 string input = Console.ReadLine();
                 if (input == "Y" || input == "YES" || input == "y" || input == "yes")
                 {
-                    MultipleAddressBook multipleAddress = new MultipleAddressBook();
-                    multipleAddress.DisplayMenu();
+                    DisplayMenu();
                 }
-                else
+                else if (input == "N" || input == "NO" || input == "n" || input == "no")
                 {
                     flag = false;
                     Console.WriteLine("Thank you");
                 }
             }
-            //FileIOOperations fileIOOperations = new FileIOOperations();
-            //fileIOOperations.WriteToFile(addressBook);
         }
         /// <summary>
         /// Display addresss book is used to display the details added in list
         /// </summary>
         public void displayAddressBook()
         {
-            foreach (var element in addressBook)
+            if (addressBook.Count == 0)
             {
-                Console.WriteLine(element);
+                Console.WriteLine("No Contacts");
+            }
+            else
+            {
+                foreach (var element in addressBook)
+                {
+                    Console.WriteLine(element);
+                }
             }
             Console.WriteLine("Do you want to continue YES/NO");
             string input = Console.ReadLine();
             if (input == "Y" || input == "YES" || input == "y" || input == "yes")
             {
-                MultipleAddressBook multipleAddress = new MultipleAddressBook();
-                multipleAddress.DisplayMenu();
+                DisplayMenu();
             }
-            else
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
             {
                 Console.WriteLine("Thank you");
             }
@@ -161,10 +228,9 @@ namespace Address_Book
             string input = Console.ReadLine();
             if (input == "Y" || input == "YES" || input == "y" || input == "yes")
             {
-                MultipleAddressBook multipleAddress = new MultipleAddressBook();
-                multipleAddress.DisplayMenu();
+                DisplayMenu();
             }
-            else
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
             {
                 Console.WriteLine("Thank you");
             }
@@ -190,68 +256,156 @@ namespace Address_Book
                 }
             }
             addressBook.RemoveAt(index);
-            //P is the person object and using list as iterator
-            foreach (Person_Details P in addressBook)
-            {
-                Console.WriteLine(P.ToString());
-            }
             if (count == 0)
                 Console.WriteLine("\n\t\t\tNo such data found");
             Console.WriteLine("Do you want to continue YES/NO");
             string input = Console.ReadLine();
             if (input == "Y" || input == "YES" || input == "y" || input == "yes")
             {
-                MultipleAddressBook multipleAddress = new MultipleAddressBook();
-                multipleAddress.DisplayMenu();
+                DisplayMenu();
+            }
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
+            {
+                Console.WriteLine("Thank you");
+            }
+        }
+        /// <summary>
+        /// This method is used to search person by city or state
+        /// </summary>
+        public void searchContact()
+        {
+            Console.WriteLine("Enter your Choice for Searching a Person in");
+            Console.WriteLine("1. City 2. State");
+            int choice1 = Convert.ToInt32(Console.ReadLine());
+            switch (choice1)
+            {
+                case 1:
+                    Console.WriteLine("Enter your City Name:");
+                    String NameToSearchInCity = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.City == NameToSearchInCity))
+                    {
+                        Console.WriteLine("City of " + personal_Details.FirstName + " is : " + personal_Details.City);
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Enter your State Name:");
+                    String nameToSearchInState = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.State == nameToSearchInState))
+                    {
+                        Console.WriteLine("City of " + personal_Details.FirstName + " is : " + personal_Details.State);
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+            Console.WriteLine("Do you want to continue YES/NO");
+            string input = Console.ReadLine();
+            if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+            {
+                DisplayMenu();
+            }
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
+            {
+                Console.WriteLine("Thank you");
+            }
+        }
+        public void ViewContact()
+        {
+            Console.WriteLine("Enter your Choice for Viewing a Person by:");
+            Console.WriteLine("1. City 2. State");
+            String choice = Console.ReadLine();
+            int choice1 = Convert.ToInt32(choice);
+            switch (choice1)
+            {
+                case 1:
+                    Console.WriteLine("Enter your City");
+                    String city = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.City == city))
+                    {
+                        Console.WriteLine(personal_Details);
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Enter your State");
+                    String state = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.State == state))
+                    {
+                        Console.WriteLine(personal_Details);
+                    }
+                    break;
+            }
+            Console.WriteLine("Do you want to continue YES/NO");
+            string input = Console.ReadLine();
+            if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+            {
+                DisplayMenu();
+            }
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
+            {
+                Console.WriteLine("Thank you");
             }
             else
             {
                 Console.WriteLine("Thank you");
             }
         }
-        /// <summary>
-        /// Display person details based on city or state
-        /// </summary>
-        public static void ViewPersonByCityOrState()
+        public void CountContacts()
         {
-            int choice;
-            Console.WriteLine("1.View Person Contact By City \n2.View Person Contact By State");
-            choice = Convert.ToInt32(Console.ReadLine());
-            switch (choice)
+            int count = 0;
+            Console.WriteLine("Enter your Choice for Count Person by:");
+            Console.WriteLine("1. City 2. State");
+            String choice = Console.ReadLine();
+            int choice1 = Convert.ToInt32(choice);
+            switch (choice1)
             {
                 case 1:
-                    Console.WriteLine("Enter the City Name");
-                    string city = Console.ReadLine();
-                    List<Person_Details> contactListInGivenCity = new List<Person_Details>();
-                    //Adds person detals of particular person to contactListInGivenCity list
-                    foreach (KeyValuePair<Person_Details, string> kvp in CitywiseContact)
+                    Console.WriteLine("Enter your City");
+                    String city = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(c => c.City == city))
                     {
-                        if (kvp.Value.Equals(city))
-                            contactListInGivenCity.Add(kvp.Key);
+                        count = addressBook.Count();
                     }
-                    //Prints details of person in particular state
-                    foreach (Person_Details contact in contactListInGivenCity)
-                    {
-                        Console.WriteLine(contact);
-                    }
+                    Console.WriteLine(count);
                     break;
                 case 2:
-                    Console.WriteLine("Enter the State Name");
-                    string state = Console.ReadLine();
-                    List<Person_Details> contactListInGivenState = new List<Person_Details>();
-                    //Adds person detals of particular person to StatewiseContactMap list
-                    foreach (KeyValuePair<Person_Details, string> kvp in StatewiseContact)
+                    Console.WriteLine("Enter your State");
+                    String state = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(c => c.State == state))
                     {
-                        if (kvp.Value.Equals(state))
-                            contactListInGivenState.Add(kvp.Key);
+                        count = addressBook.Count();
                     }
-                    //Prints details of person in particular state
-                    foreach (Person_Details contact in contactListInGivenState)
-                    {
-                        Console.WriteLine(contact);
-                    }
+                    Console.WriteLine(count);
                     break;
             }
         }
+        public int Compare(Person_Details x, Person_Details y)
+        {
+            Console.WriteLine("Enter choice for sorting:");
+            Console.WriteLine("1. FirstName 2. City 3. State 4. ZipCode");
+            String choice = Console.ReadLine();
+            int choice1 = Convert.ToInt32(choice);
+            switch (choice1)
+            {
+                case 1:
+                    return x.FirstName.CompareTo(y.FirstName);
+                case 2:
+                    return x.City.CompareTo(y.City);
+                case 3:
+                    return x.State.CompareTo(y.State);
+                case 4:
+                    return x.ZipCode.CompareTo(y.ZipCode);
+            }
+            return 0;
+        }
+        public void SortByName()
+        {
+            addressBook.Sort(Compare);
+            foreach (Person_Details entry in this.addressBook)
+            {
+                Console.WriteLine(entry);
+            }
+        }
+
     }
 }
