@@ -19,7 +19,7 @@ namespace Address_Book
         public void DisplayMenu()
         {
             Console.WriteLine("***Enter Your Choice***");
-            Console.WriteLine("1.Add Details\n2.Display Details\n3.Edit contact\n4.Delete contact\n5.Search person by city or state\n6.Exit");
+            Console.WriteLine("1.Add Details\n2.Display Details\n3.Edit contact\n4.Delete contact\n5.Search person by city or state\n6.View contacts by city or state\n7.Exit");
             int choice = Convert.ToInt32(Console.ReadLine());
             switch (choice)
             {
@@ -40,9 +40,12 @@ namespace Address_Book
                     DeleteContact(number1);
                     break;
                 case 5:
-                    Search();
+                    searchContact();
                     break;
                 case 6:
+                    ViewContact();
+                    break;
+                case 7:
                     return;
                 default:
                     break;
@@ -94,7 +97,7 @@ namespace Address_Book
                 Console.WriteLine("Enter last name");
                 person.LastName = Console.ReadLine();
                 Console.WriteLine("Enter address");
-                person.Address = Console.ReadLine();
+                person.Adderss = Console.ReadLine();
                 Console.WriteLine("Enter city");
                 person.City = Console.ReadLine();
                 Console.WriteLine("Enter state");
@@ -262,7 +265,7 @@ namespace Address_Book
         /// <summary>
         /// This method is used to search person by city or state
         /// </summary>
-        public void Search()
+        public void searchContact()
         {
             Console.WriteLine("Enter your Choice for Searching a Person in");
             Console.WriteLine("1. City 2. State");
@@ -296,6 +299,46 @@ namespace Address_Book
                 DisplayMenu();
             }
             else if (input == "N" || input == "NO" || input == "n" || input == "no")
+            {
+                Console.WriteLine("Thank you");
+            }
+        }
+        public void ViewContact()
+        {
+            Console.WriteLine("Enter your Choice for Viewing a Person by:");
+            Console.WriteLine("1. City 2. State");
+            String choice = Console.ReadLine();
+            int choice1 = Convert.ToInt32(choice);
+            switch (choice1)
+            {
+                case 1:
+                    Console.WriteLine("Enter your City");
+                    String city = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.City == city))
+                    {
+                        Console.WriteLine(personal_Details);
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Enter your State");
+                    String state = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.State == state))
+                    {
+                        Console.WriteLine(personal_Details);
+                    }
+                    break;
+            }
+            Console.WriteLine("Do you want to continue YES/NO");
+            string input = Console.ReadLine();
+            if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+            {
+                DisplayMenu();
+            }
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
+            {
+                Console.WriteLine("Thank you");
+            }
+            else
             {
                 Console.WriteLine("Thank you");
             }
