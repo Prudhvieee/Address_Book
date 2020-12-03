@@ -19,7 +19,7 @@ namespace Address_Book
         public void DisplayMenu()
         {
             Console.WriteLine("***Enter Your Choice***");
-            Console.WriteLine("1.Add Details\n2.Display Details\n3.Edit contact\n4.Delete contact\n5.Exit");
+            Console.WriteLine("1.Add Details\n2.Display Details\n3.Edit contact\n4.Delete contact\n5.Search person by city or state\n6.Exit");
             int choice = Convert.ToInt32(Console.ReadLine());
             switch (choice)
             {
@@ -40,6 +40,9 @@ namespace Address_Book
                     DeleteContact(number1);
                     break;
                 case 5:
+                    Search();
+                    break;
+                case 6:
                     return;
                 default:
                     break;
@@ -245,6 +248,47 @@ namespace Address_Book
             addressBook.RemoveAt(index);
             if (count == 0)
                 Console.WriteLine("\n\t\t\tNo such data found");
+            Console.WriteLine("Do you want to continue YES/NO");
+            string input = Console.ReadLine();
+            if (input == "Y" || input == "YES" || input == "y" || input == "yes")
+            {
+                DisplayMenu();
+            }
+            else if (input == "N" || input == "NO" || input == "n" || input == "no")
+            {
+                Console.WriteLine("Thank you");
+            }
+        }
+        /// <summary>
+        /// This method is used to search person by city or state
+        /// </summary>
+        public void Search()
+        {
+            Console.WriteLine("Enter your Choice for Searching a Person in");
+            Console.WriteLine("1. City 2. State");
+            int choice1 = Convert.ToInt32(Console.ReadLine());
+            switch (choice1)
+            {
+                case 1:
+                    Console.WriteLine("Enter your City Name:");
+                    String NameToSearchInCity = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.City == NameToSearchInCity))
+                    {
+                        Console.WriteLine("City of " + personal_Details.FirstName + " is : " + personal_Details.City);
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Enter your State Name:");
+                    String nameToSearchInState = Console.ReadLine();
+                    foreach (Person_Details personal_Details in addressBook.FindAll(e => e.State == nameToSearchInState))
+                    {
+                        Console.WriteLine("City of " + personal_Details.FirstName + " is : " + personal_Details.State);
+                    }
+                    break;
+                default:
+                    break;
+
+            }
             Console.WriteLine("Do you want to continue YES/NO");
             string input = Console.ReadLine();
             if (input == "Y" || input == "YES" || input == "y" || input == "yes")
