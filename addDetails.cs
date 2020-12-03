@@ -49,6 +49,9 @@ namespace Address_Book
                     CountContacts();
                     break;
                 case 8:
+                    CountContacts();
+                    break;
+                case 9:
                     return;
                 default:
                     break;
@@ -375,5 +378,33 @@ namespace Address_Book
                     break;
             }
         }
+        public int Compare(Person_Details x, Person_Details y)
+        {
+            Console.WriteLine("Enter choice for sorting:");
+            Console.WriteLine("1. FirstName 2. City 3. State 4. ZipCode");
+            String choice = Console.ReadLine();
+            int choice1 = Convert.ToInt32(choice);
+            switch (choice1)
+            {
+                case 1:
+                    return x.FirstName.CompareTo(y.FirstName);
+                case 2:
+                    return x.City.CompareTo(y.City);
+                case 3:
+                    return x.State.CompareTo(y.State);
+                case 4:
+                    return x.ZipCode.CompareTo(y.ZipCode);
+            }
+            return 0;
+        }
+        public void SortByName()
+        {
+            addressBook.Sort(Compare);
+                foreach (Person_Details entry in this.addressBook)
+                {
+                    Console.WriteLine(entry);
+                }
+        }
+        
     }
 }

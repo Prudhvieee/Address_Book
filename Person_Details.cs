@@ -16,7 +16,7 @@ namespace Address_Book
         {
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.Adderss = address;
+            this.Address = address;
             this.City = city;
             this.State = state;
             this.ZipCode = zipCode;
